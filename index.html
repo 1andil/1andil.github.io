@@ -108,7 +108,9 @@
       { q: "Are you male or female?", a: ["Male", "Female"] },
       { q: "Are you in a relationship?", a: ["Yes", "No"] },
       { q: "Are you in love?", a: ["Yes", "No"] },
-      { q: "Do you love the person standing in front of you?", a: ["Yes", "No"] }
+      { q: "Is your boyfriend Romanian?", a: ["Yes", "No"] },
+      { q: "Do you love the person sitting in front of you?", a: ["Yes", "No"] }
+    
     ];
 
     let step = 0;
@@ -146,7 +148,7 @@
 
     // ---------- FINAL VALENTINE ----------
     function showFinal() {
-      const text = "Will you be my Valentine?";
+      const text = "Final Question... Will you be Andi's Valentine?";
       app.innerHTML = `
         <div id="final">
           ${text.split("").map(l => `<span>${l === " " ? "&nbsp;" : l}</span>`).join("")}
@@ -173,7 +175,7 @@
     function yes() {
       app.innerHTML = `
         <h1>YOU SAID YES!! 💕</h1>
-        <p>No house... but you won my heart 😌</p>
+        <p>No house... but you've made me the happiest person ever!!!</p>
       `;
       launchConfetti();
     }
