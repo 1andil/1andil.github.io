@@ -16,6 +16,7 @@
       justify-content: center;
       color: white;
       text-align: center;
+      overflow: hidden;
     }
 
     .card {
@@ -59,6 +60,20 @@
       font-size: 1.8rem;
     }
 
+    .confetti {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      top: -10px;
+      animation: fall 3s linear forwards;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(110vh) rotate(360deg);
+      }
+    }
+
     @keyframes fadeIn {
       from {opacity: 0; transform: scale(0.95);}
       to {opacity: 1; transform: scale(1);}
@@ -73,26 +88,13 @@
     const app = document.getElementById("app");
 
     const questions = [
-      {
-        q: "Are you male or female?",
-        a: ["Male", "Female"]
-      },
-      {
-        q: "Are you in a relationship?",
-        a: ["Yes", "No"]
-      },
-      {
-        q: "Are you in love?",
-        a: ["Yes", "No"]
-      },
-      {
-        q: "Do you love the person standing in front of you?",
-        a: ["Yes", "No"]
-      }
+      { q: "Are you male or female?", a: ["Male", "Female"] },
+      { q: "Are you in a relationship?", a: ["Yes", "No"] },
+      { q: "Are you in love?", a: ["Yes", "No"] },
+      { q: "Do you love the person standing in front of you?", a: ["Yes", "No"] }
     ];
 
     let step = 0;
-    let answers = [];
 
     function renderQuestion() {
       const q = questions[step];
@@ -103,9 +105,7 @@
     }
 
     function answer(ans) {
-      answers.push(ans);
       step++;
-
       if (step < questions.length) {
         renderQuestion();
       } else {
@@ -118,7 +118,6 @@
         <h2>Calculating results...</h2>
         <p>Analyzing emotional data 💘</p>
       `;
-
       setTimeout(showFinal, 2000);
     }
 
@@ -127,6 +126,10 @@
       app.innerHTML = `
         <div id="final">
           ${text.split("").map(l => `<span>${l === " " ? "&nbsp;" : l}</span>`).join("")}
+        </div>
+        <div id="buttons" style="margin-top:20px; display:none;">
+          <button onclick="yes()">YES 💖</button>
+          <button onclick="no()">No 😒</button>
         </div>
       `;
 
@@ -137,6 +140,36 @@
           l.style.transform = "translateY(0)";
         }, i * 120);
       });
+
+      // Show buttons after animation
+      setTimeout(() => {
+        document.getElementById("buttons").style.display = "block";
+      }, letters.length * 120 + 500);
+    }
+
+    function yes() {
+      app.innerHTML = `<h1>YAY!! 💕🥰</h1><p>You just made me the happiest person ever!</p>`;
+      launchConfetti();
+    }
+
+    function no() {
+      app.innerHTML = `
+        <h2>Wrong answer 😤</h2>
+        <p>Try again...</p>
+        <button onclick="showFinal()">Okay fine 😅</button>
+      `;
+    }
+
+    function launchConfetti() {
+      for (let i = 0; i < 120; i++) {
+        const c = document.createElement("div");
+        c.className = "confetti";
+        c.style.left = Math.random() * 100 + "vw";
+        c.style.background = `hsl(${Math.random()*360}, 100%, 70%)`;
+        c.style.animationDuration = 2 + Math.random() * 2 + "s";
+        document.body.appendChild(c);
+        setTimeout(() => c.remove(), 4000);
+      }
     }
 
     renderQuestion();
