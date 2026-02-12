@@ -108,6 +108,8 @@
       { q: "Are you male or female?", a: ["Male", "Female"] },
       { q: "Are you in a relationship?", a: ["Yes", "No"] },
       { q: "Are you in love?", a: ["Yes", "No"] },
+      { q: "Are you really in love?", a: ["Yes", "No"] },
+      { q: "Are you super cute?", a: ["Yes", "No"] },
       { q: "Is your boyfriend Romanian?", a: ["Yes", "No"] },
       { q: "Do you love the person sitting in front of you?", a: ["Yes", "No"] }
     
@@ -148,7 +150,7 @@
 
     // ---------- FINAL VALENTINE ----------
     function showFinal() {
-      const text = "Finally... Will you be Andi's Valentine?";
+      const text = "Will you be Andi's Valentine?";
       app.innerHTML = `
         <div id="final">
           ${text.split("").map(l => `<span>${l === " " ? "&nbsp;" : l}</span>`).join("")}
